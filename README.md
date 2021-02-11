@@ -1,24 +1,74 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## usersテーブル
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| nickname   | string | null: false |
+| email   | string | null: false, unique: true |
+| encrypted_password  | string | null: false |
+| family_name   | string | null: false |
+| first_name  | string | null: false |
+| family_name_kana   | string | null: false |
+| first_name_kana  | string | null: false |
+| birthday   | date | null: false |
 
-Things you may want to cover:
+### Association
+has_many:lists
+has_many:orders
+has_many:comments
 
-* Ruby version
+## listsテーブル
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| item   | string | null: false |
+| item_content  | text | null: false |
+| category_id  | integer | null: false |
+| condition_id  | integer | null: false |
+| delivery_fee_id  | integer | null: false |
+| prefecture_id | integer | null: false |
+| shipping_date_id  | integer | null: false |
+| price  | integer | null: false |
+| user  | references | null: false, foreign_key: true |
 
-* System dependencies
+### Association
+belongs_to :user
+has_one :order
+has_many :comments
 
-* Configuration
 
-* Database creation
+## buyersテーブル
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| post_number  | string | null: false |
+| prefecture_id  | integer | null: false |
+| municipality  | string | null: false |
+| address | string | null: false |
+| building | string |
+| phone_number | string | null: false |
+| order  | references | null: false, foreign_key: true |
 
-* Database initialization
+### Association
+belongs_to :order
 
-* How to run the test suite
+## ordersテーブル
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| list  | references | null: false, foreign_key: true |
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
+belongs_to :user
+belongs_to :list
+has_one :buyer
 
-* Deployment instructions
 
-* ...
+## commentsテーブル
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| text   | text | null: false |
+| user  | references | null: false, foreign_key: true |
+| list  | references | null: false, foreign_key: true |
+
+### Association
+belongs_to :user
+belongs_to :list
