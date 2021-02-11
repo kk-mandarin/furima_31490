@@ -23,7 +23,7 @@ has_many:comments
 | item   | string | null: false |
 | item_content  | text | null: false |
 | category_id  | integer | null: false |
-| item_condition_id  | integer | null: false |
+| condition_id  | integer | null: false |
 | delivery_fee_id  | integer | null: false |
 | prefecture_id | integer | null: false |
 | shipping_date_id  | integer | null: false |
@@ -58,7 +58,7 @@ belongs_to :order
 
 ### Association
 belongs_to :user
-has_one :list
+belongs_to :list
 has_one :buyer
 
 
@@ -71,4 +71,4 @@ has_one :buyer
 
 ### Association
 belongs_to :user
-belongs_to :lists
+belongs_to :list
