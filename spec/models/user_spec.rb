@@ -10,14 +10,6 @@ RSpec.describe User, type: :model do
         it 'nickname,email,password,password_confirmation,family_name,first_name,family_name_kana,first_name_kana,birthdayが正しく記述できていれば登録できる' do
           expect(@user).to be_valid
         end
-        it 'family_name_kanaがカタカナだと登録できる' do
-          @user.family_name_kana = "カタカナ"
-          expect(@user).to be_valid
-        end
-        it 'first_name_kanaがカタカナだと登録できる' do
-          @user.first_name_kana = "カタカナ"
-          expect(@user).to be_valid
-        end
       end
       context '新規登録ができない時' do
         it 'nicknameが空では登録できない' do
