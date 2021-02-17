@@ -1,6 +1,21 @@
 class ItemsController < ApplicationController
-  before_action :move_to_index, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
   def index
+    @items = Item.all
+  end
+
+  def new
+    @item = Item.new
+  end
+
+  def create
+    Item.create(item_params)
+    #@item = Item.new(item_params)
+    #if @item.save
+     # redirect_to new_item_path
+    #else
+     # render sessions/new
+    #end
   end
 
   #def move_to_index
@@ -8,4 +23,9 @@ class ItemsController < ApplicationController
     #  redirect_to action: :index
     #end
   #end
+
+  private
+  def item_params
+    params.require(:item).permit(:item, :item_content, :category_id, :condition_id, :delivery_fee_id, :prefecture_id, :shipping_date_id, :price, :user)
+  end
 end
