@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   def index
-    @items = Item.all
+    @items = Item.includes(:user)
   end
 
   def new
@@ -9,13 +9,13 @@ class ItemsController < ApplicationController
   end
 
   def create
-    Item.create(item_params)
-    #@item = Item.new(item_params)
-    #if @item.save
-     # redirect_to new_item_path
-    #else
-     # render sessions/new
-    #end
+    @item = Items.new(item_params)
+    if @item.save
+      redirect_to root_path
+    else
+      render :new
+    end
+
   end
 
   #def move_to_index
@@ -26,6 +26,8 @@ class ItemsController < ApplicationController
 
   private
   def item_params
-    params.require(:item).permit(:item, :item_content, :category_id, :condition_id, :delivery_fee_id, :prefecture_id, :shipping_date_id, :price, :user)
+    params.require(:item).permit(:item, :item_content, :image, :category_id, :condition_id, :delivery_fee_id, :prefecture_id, :shipping_date_id, :price).merge(user_id: current_user.id)
   end
+
+  
 end
