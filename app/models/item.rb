@@ -19,10 +19,11 @@ class Item < ApplicationRecord
       validates :condition_id
       validates :delivery_fee_id
       validates :prefecture_id
-      validates :shipping_date_id
+      validates :shipping_date_id 
     end
     validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
     validates :user
+    validates :image
   end
 
 end
