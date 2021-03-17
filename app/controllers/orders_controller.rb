@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :create]
   before_action :orders, only: [:index, :create]
-  before_action :move_to_index, only: [:index]
+  
 
   def index
     @order_purchase = Purchase.new
@@ -38,9 +38,5 @@ class OrdersController < ApplicationController
       card: purchase_params[:token],
       currency: 'jpy'
     )
-  end
-
-  def move_to_index
-    redirect_to new_user_session_path unless user_signed_in?
   end
 end
