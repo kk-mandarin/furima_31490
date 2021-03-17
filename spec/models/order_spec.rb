@@ -26,52 +26,52 @@ RSpec.describe Order, type: :model do
       end
 
       it 'post_numberにハイフンがないと購入できない' do
-        @order.post_number = 1111111
+        @order.post_number = 1_111_111
         @order.valid?
-        expect(@order.errors.full_messages).to include "Post number is invalid. Include hyphen(-)"
-      end 
+        expect(@order.errors.full_messages).to include 'Post number is invalid. Include hyphen(-)'
+      end
 
       it 'post_number数字以外購入できない' do
-        @order.post_number = "aaa-aaaa"
+        @order.post_number = 'aaa-aaaa'
         @order.valid?
-        expect(@order.errors.full_messages).to include "Post number is invalid. Include hyphen(-)"
+        expect(@order.errors.full_messages).to include 'Post number is invalid. Include hyphen(-)'
       end
 
       it 'prefecture_idが空だと購入できない' do
         @order.prefecture_id = nil
         @order.valid?
-        expect(@order.errors.full_messages).to include "Prefecture can't be blank", "Prefecture is not a number"
-      end 
+        expect(@order.errors.full_messages).to include "Prefecture can't be blank", 'Prefecture is not a number'
+      end
 
       it 'prefecture_idが1だと購入できない' do
         @order.prefecture_id = 1
         @order.valid?
-        expect(@order.errors.full_messages).to include "Prefecture must be other than 1"
-      end 
+        expect(@order.errors.full_messages).to include 'Prefecture must be other than 1'
+      end
 
       it 'municipalityが空だと購入できない' do
         @order.municipality = ''
         @order.valid?
         expect(@order.errors.full_messages).to include "Municipality can't be blank"
       end
-      
+
       it 'addressが空だと購入できない' do
         @order.address = ''
         @order.valid?
         expect(@order.errors.full_messages).to include "Address can't be blank"
       end
-      
+
       it 'phone_numberが空だと購入できない' do
         @order.token = ''
         @order.valid?
         expect(@order.errors.full_messages).to include "Phone number can't be blank"
-      end 
+      end
 
       it 'phone_numberが全角数字だと購入できない' do
         @order.token = １１１１１１１１１１１
         @order.valid?
-        expect(@order.errors.full_messages).to include "Phone number is invalid. Input half-width characters."
-      end 
+        expect(@order.errors.full_messages).to include 'Phone number is invalid. Input half-width characters.'
+      end
     end
   end
 end

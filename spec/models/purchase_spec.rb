@@ -4,7 +4,7 @@ RSpec.describe Purchase, type: :model do
   before do
     user_id = FactoryBot.create(:user)
     item_id = FactoryBot.create(:item)
-    @purchase = FactoryBot.build(:purchase,user_id: user_id.id ,item_id: item_id.id)
+    @purchase = FactoryBot.build(:purchase, user_id: user_id.id, item_id: item_id.id)
     sleep(0.5)
   end
 
@@ -25,60 +25,58 @@ RSpec.describe Purchase, type: :model do
       it 'post_numberが空で購入できない' do
         @purchase.post_number = ''
         @purchase.valid?
-        expect(@purchase.errors.full_messages).to include "Post number can't be blank", "Post number is invalid. Include hyphen(-)"
+        expect(@purchase.errors.full_messages).to include "Post number can't be blank",
+                                                          'Post number is invalid. Include hyphen(-)'
       end
 
       it 'post_numberにハイフンがないと購入できない' do
-        @purchase.post_number = "1111111"
+        @purchase.post_number = '1111111'
         @purchase.valid?
-        expect(@purchase.errors.full_messages).to include "Post number is invalid. Include hyphen(-)"
-      end 
+        expect(@purchase.errors.full_messages).to include 'Post number is invalid. Include hyphen(-)'
+      end
 
       it 'post_number数字以外購入できない' do
-        @purchase.post_number = "aaa-aaaa"
+        @purchase.post_number = 'aaa-aaaa'
         @purchase.valid?
-        expect(@purchase.errors.full_messages).to include "Post number is invalid. Include hyphen(-)"
+        expect(@purchase.errors.full_messages).to include 'Post number is invalid. Include hyphen(-)'
       end
 
       it 'prefecture_idが空だと購入できない' do
         @purchase.prefecture_id = nil
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include "Prefecture can't be blank", "Prefecture can't be blank"
-      end 
+      end
 
       it 'prefecture_idが1だと購入できない' do
         @purchase.prefecture_id = 1
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include "Prefecture can't be blank"
-      end 
+      end
 
       it 'municipalityが空だと購入できない' do
         @purchase.municipality = ''
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include "Municipality can't be blank"
       end
-      
+
       it 'addressが空だと購入できない' do
         @purchase.address = ''
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include "Address can't be blank"
       end
-      
+
       it 'phone_numberが空だと購入できない' do
         @purchase.phone_number = ''
         @purchase.valid?
-        expect(@purchase.errors.full_messages).to include "Phone number can't be blank", "Phone number is invalid. Input half-width characters."
-      end 
+        expect(@purchase.errors.full_messages).to include "Phone number can't be blank",
+                                                          'Phone number is invalid. Input half-width characters.'
+      end
 
       it 'phone_numberが全角数字だと購入できない' do
-        @purchase.phone_number = "１１１１１１１１１１１"
+        @purchase.phone_number = '１１１１１１１１１１１'
         @purchase.valid?
-        expect(@purchase.errors.full_messages).to include "Phone number is invalid. Input half-width characters."
-      end 
+        expect(@purchase.errors.full_messages).to include 'Phone number is invalid. Input half-width characters.'
+      end
     end
   end
 end
-
-    
-
-
