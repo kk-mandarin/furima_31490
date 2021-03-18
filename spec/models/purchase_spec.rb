@@ -13,6 +13,11 @@ RSpec.describe Purchase, type: :model do
       it 'token,post_number,prefecture_id,municipality,address,phone_numberが入力されている' do
         expect(@purchase).to be_valid
       end
+
+      it 'buildingは空でも購入できる' do
+        @purchase.building = ""
+        expect(@purchase).to be_valid
+      end
     end
 
     context '購入できないとき' do
