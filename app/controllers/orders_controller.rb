@@ -1,11 +1,10 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :create]
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :orders, only: [:index, :create]
-  
+  before_action :sold_out, only: [:index, :create]
 
   def index
     @order_purchase = Purchase.new
-    redirect_to root_path if @item.order.present? || (current_user.id == @item.user_id)
   end
 
   def create
@@ -29,6 +28,10 @@ class OrdersController < ApplicationController
     params.require(:purchase).permit(:post_number, :prefecture_id, :municipality, :address, :building, :phone_number).merge(
       user_id: current_user.id, item_id: params[:item_id], token: params[:token]
     )
+  end
+
+  def sold_out
+    redirect_to root_path if @item.order.present? || (current_user.id == @item.user_id)
   end
 
   def pay_purchase
